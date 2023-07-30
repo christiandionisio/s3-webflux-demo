@@ -21,7 +21,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
 
   @Override
   public Mono<byte[]> getByteObject(String key) {
-    log.debug("Fetching object as byte array from S3 bucket: {}, key: {}", s3ConfigProperties.getS3BucketName(), key);
+    log.info("Fetching object as byte array from S3 bucket: {}, key: {}", s3ConfigProperties.getS3BucketName(), key);
     return Mono.just(GetObjectRequest.builder().bucket(s3ConfigProperties.getS3BucketName()).key(key).build())
       .map(it -> s3AsyncClient.getObject(it, AsyncResponseTransformer.toBytes()))
       .flatMap(Mono::fromFuture)
